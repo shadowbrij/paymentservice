@@ -16,17 +16,11 @@ import com.stripe.param.PriceCreateParams;
 @Primary
 public class StripePaymentGateway implements PaymentGateway {
 
-    @Value("${STRIPE_SECRET_KEY}")
+    @Value("${stripe.key.secret}")
     private String stripeKey;
 
-    // private final StripeClient stripeClient;
-
-    // public StripePaymentGateway(StripeClient stripeClient) {
-    //     this.stripeClient = stripeClient;
-    // }
     @Override
     public String generatePaymentLink(String orderId, Long amount, String phoneNumber, String email) throws StripeException {
-        // Logic to generate payment link using Stripe API
         Stripe.apiKey = stripeKey;
 
         PaymentLinkCreateParams params =
