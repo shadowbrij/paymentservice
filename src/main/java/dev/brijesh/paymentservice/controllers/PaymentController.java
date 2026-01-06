@@ -12,7 +12,7 @@ import dev.brijesh.paymentservice.dtos.PaymentRequestDTO;
 import dev.brijesh.paymentservice.services.PaymentService;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/payments")
 public class PaymentController {
 
 
@@ -22,11 +22,11 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping("/")
+    @PostMapping("/generatePaymentLink")
     public String makePayment(@RequestBody PaymentRequestDTO paymentRequestDTO) 
                         throws StripeException, RazorpayException {
         return paymentService.initiatePayment(paymentRequestDTO.getOrderId()
-        ,paymentRequestDTO.getAmount()
+        ,paymentRequestDTO.getAmount()*100 //It considers amount in paisa or cents
         ,paymentRequestDTO.getPhoneNumber()
         ,paymentRequestDTO.getEmail());
     }
